@@ -1,0 +1,96 @@
+<div class="container-fluid" ng-animate="'animate'">
+
+    <div class="row">
+        <div class="col-xs-12">
+            <h2 class="moduleHeader">
+                Appointment
+            </h2>
+
+            <a ng-click="openAddAppointment()" class="btn btn-primary pull-right hideme">Add Appointment
+            </a>
+
+            <div class="col-md-3 pull-right hideme">
+                <input type="text" class="form-control customSearch hideme" ng-model="appointmentsSearch"
+                       placeholder="Search Appointment">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 m-t-20" >
+
+        <div class="row moduleContainer" >
+            <div ng-if="!(appointments | searchObject: appointmentsSearch).length"
+                 class="hideme alert alert-block alert-info">
+                <span class="pull-right close" data-dismiss="alert"></span>
+                <h4 class="alert-heading">Oops!</h4>
+                There are no Appointments here!
+            </div>
+
+
+            <table ng-hide="!(appointments  | searchObject: appointmentsSearch ).length"
+                   class="table table-striped table-hover table-bordered dataTable">
+                <thead>
+                <tr role="row">
+                    
+                    <th role="columnheader" class="slot" ng-click="sort='slot';reverse=!reverse">
+                        Time Slot
+                    </th>
+                    
+                    <th role="columnheader" ng-click="sort='name';reverse=!reverse">
+                        Name
+                    </th>
+                    
+                    <th role="columnheader" ng-click="sort='phone';reverse=!reverse">
+                        Phone#
+                    </th>
+                    
+
+                    <th role="columnheader" class="actionTH" style="display:none;">Actions</th>
+                </tr>
+                </thead>
+                <tbody role="alert" aria-live="polite" aria-relevant="all" right-menu id="rightContextMenu">
+                <tr ng-repeat="appointment in appointments | searchObject:appointmentsSearch | orderObjectBy:sort:reverse"
+                    ng-animate="''"
+                    ng-class="{'notavailable': !appointment.available}">
+                    
+                    <td ng-click="openUpdateAppointment(appointment)" >
+                        {{ appointment['slot'] }}
+                    </td>
+                    
+                    <td>
+                        {{ appointment['name'] }}
+                    </td>
+                    
+                    <td>
+                        {{ appointment['phone'] }}
+                    </td>
+                    
+
+                    <td style="display:none;">
+                        <button class="btn btn-success btn-xs" tooltip-init
+                                data-toggle="tooltip" data-placement="top" title="Update"
+                                ng-click="openUpdateAppointment(appointment)">
+                            <i class="glyphicon glyphicon-pencil"></i>
+                        </button>
+                        <button class="btn btn-danger btn-xs" tooltip-init
+                                data-toggle="tooltip" data-placement="top" title="Delete"
+                                ng-click="openDeleteAppointment(appointment)">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <ng-include src="'modules/appointment/views/addAppointment.html'"></ng-include>
+    <ng-include src="'modules/appointment/views/updateAppointment.html'"></ng-include>
+    <ng-include src="'modules/appointment/views/deleteAppointment.html'"></ng-include>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+</div>

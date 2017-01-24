@@ -1,0 +1,28 @@
+.hideme {
+    display:none
+}
+
+.mediumModal{
+    width:60%
+}
+.actionTH{
+    width:125px;
+}
+
+.moduleHeader{
+    display: inline-block;margin: 0px
+}
+.moduleContainer{
+    max-height: 750px;overflow: auto;margin-top: 20px
+}
+.m-t-20{
+    margin-top: 20px
+}
+
+th.slot {
+	width: 220px;
+}
+
+tr.notavailable {
+	background-color: red !important;
+}
